@@ -36,6 +36,7 @@ class Extract:
         for key in self.LEAGUE_MAPPING.keys():
             print(key)
     
+    
     def list_endpoints(self):
         print('------- Data Endpoints --------')
         for key in self.ENDPOINTS.keys():

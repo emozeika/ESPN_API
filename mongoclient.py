@@ -1,12 +1,13 @@
 from pymongo import MongoClient
+import config
 
 class MongoDBClient:
 
-    LOCAL_CLUSTER = 'mongodb://localhost:27017/'
-
-    def __init__(self):
+    def __init__(self, cluster=None):
         '''Instantiates mongo db client with cluster'''
-        self.client = MongoClient(self.LOCAL_CLUSTER)
+        if not cluster:
+            self.CLUSTER = config.LOCAL_CLUSTER
+        self.client = MongoClient(self.CLUSTER)
 
     def list_databases(self):
         ''' Loops through your Mongo Client clusters and prints out all the database names in it'''

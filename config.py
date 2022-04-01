@@ -5,4 +5,4 @@ VERSIONURL = 'v2/'
 
 
 #Mongo DB local cluster
-LOCAL_CLUSTER = "mongodb//localhost/27017/S"
+LOCAL_CLUSTER = "mongodb://localhost:27017/"
