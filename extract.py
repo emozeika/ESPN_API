@@ -119,5 +119,5 @@ class Extract:
         url = self.setup_endpoint(league, endpoint, filters, limit)
         page = requests.get(url).json()
         
-        print(page)
+
         return page
