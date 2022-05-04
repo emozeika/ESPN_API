@@ -1,4 +1,3 @@
-from xarray import save_mfdataset
 from extract import Extract
 from mongoclient import MongoDBClient
 from datetime import datetime
