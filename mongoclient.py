@@ -73,6 +73,6 @@ class MongoDBClient:
 
 
 
-#MongoDBClient().create_document('mlb', 'games', '20220422', 1)
+
 
 
