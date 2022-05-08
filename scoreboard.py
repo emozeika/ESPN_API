@@ -26,12 +26,12 @@ class ScoreBoardExtract:
 
         return scoreboard
     
-    def save_scoreboard(self, date = None):
+    def save_scoreboard(self, date = None, cluster = None):
         if not date:
             date = datetime.strftime(datetime.today(), "%Y%m%d")
 
         scoreboard = self.get_scoreboard(date)
-        MongoDBClient().create_document(
+        MongoDBClient(cluster).create_document(
                                         db_name = self.LEAGUE, 
                                         collection_name = self.ENDPOINT, 
                                         document_id = date, 
@@ -40,4 +40,3 @@ class ScoreBoardExtract:
 
 
 
-ScoreBoardExtract('nba').save_scoreboard()
