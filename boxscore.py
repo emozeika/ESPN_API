@@ -2,7 +2,7 @@ from extract import Extract
 from mongoclient import MongoDBClient
 from scoreboard import ScoreBoardExtract
 from datetime import datetime
-from pprint import pprint
+
 
 
 
@@ -40,8 +40,9 @@ class BoxScoreExtract:
         event_ids = []
         for i in range(len(scoreboard_data)):
             event_ids.append(scoreboard_data[i]['id'])
-
-        return event_ids
+        
+        if len(event_ids) > 0:
+            return event_ids
 
 
     def save_boxscore(self, event_id, cluster = None):
@@ -70,9 +71,10 @@ class BoxScoreExtract:
         GET_EVENT_IDS to retrive data and then utilizes the MongoDBClient class to store data.
         '''
         event_ids = self.get_event_ids(date = date)
-        self.save_boxscore(event_id = event_ids, cluster = cluster)
-
-
+        if event_ids:
+            self.save_boxscore(event_id = event_ids, cluster = cluster)
+        else:
+            print(f"NO EVENTS FOR DATE {date}")
 
 
 
