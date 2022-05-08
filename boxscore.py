@@ -77,4 +77,3 @@ class BoxScoreExtract:
 
 
 
-BoxScoreExtract('mlb').save_boxscores()
