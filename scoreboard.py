@@ -31,12 +31,15 @@ class ScoreBoardExtract:
             date = datetime.strftime(datetime.today(), "%Y%m%d")
 
         scoreboard = self.get_scoreboard(date)
-        MongoDBClient(cluster).create_document(
-                                        db_name = self.LEAGUE, 
-                                        collection_name = self.ENDPOINT, 
-                                        document_id = date, 
-                                        content = scoreboard
-                                    )
+        if len(scoreboard['events']) > 0:
+            MongoDBClient(cluster).create_document(
+                                            db_name = self.LEAGUE, 
+                                            collection_name = self.ENDPOINT, 
+                                            document_id = date, 
+                                            content = scoreboard
+                                            )
+        else:
+            print(f"NO EVENTS FOR DATE {date}")
 
 
 
