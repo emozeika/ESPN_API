@@ -25,12 +25,61 @@ class ScoreBoardExtract:
                                         )
 
         return scoreboard
+
+    def clean_scoreboard(self, scoreboard):
+        #remove the array wrapper on leagues and remove calendar array in leagues list
+        scoreboard['leagues'] = scoreboard['leagues'][0]
+        del scoreboard['leagues']['calendar']
+
+        #clean events
+        cleaned_events = {}
+        if len(scoreboard['events']) > 0:
+            for i in range(len(scoreboard['events'])):
+                cleaned_events[str(i)] = scoreboard['events'][i]
+                cleaned_events[str(i)]['competitions'] = scoreboard['events'][i]['competitions'][0]
+                
+                competitors = {}
+                for j in range(len(cleaned_events[str(i)]['competitions']['competitors'])):
+                    competitors[str(j)] = cleaned_events[str(i)]['competitions']['competitors'][j]
+                    del competitors[str(j)]['team']['links']
+                    columns_to_delete = ['linescores', 'statistics', 'leaders', 'records']
+                    for column in columns_to_delete:
+                        if column in competitors[str(j)].keys():
+                            del competitors[str(j)][column]
+                
+                cleaned_events[str(i)]['competitions']['competitors'] = competitors
+
+
+                #delete unecessary columns in events
+                del cleaned_events[str(i)]['links']
+
+                #delete unecessary columns in competitions
+                columns_to_delete = ['notes', 'broadcasts', 'geoBroadcasts', 'leaders']
+                for column in columns_to_delete:
+                    if column in cleaned_events[str(i)]['competitions'].keys():
+                        del cleaned_events[str(i)]['competitions'][column]
+
+                #delete unecessary columns in status
+                if 'featuredAthletes' in  cleaned_events[str(i)]['competitions']['status'].keys():
+                    del cleaned_events[str(i)]['competitions']['status']['featuredAthletes']
+
+
+
+            
+
+        scoreboard['events'] = cleaned_events
+
+        
+
+        return scoreboard
+
     
     def save_scoreboard(self, date = None, cluster = None):
         if not date:
             date = datetime.strftime(datetime.today(), "%Y%m%d")
 
         scoreboard = self.get_scoreboard(date)
+        scoreboard = self.clean_scoreboard(scoreboard)
         if len(scoreboard['events']) > 0:
             MongoDBClient(cluster).create_document(
                                             db_name = self.LEAGUE, 
