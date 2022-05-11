@@ -17,13 +17,15 @@ def pull_historical_data(league, start_date, end_date = None):
 
     #loop to run through dates
     while current_date < end_date:
-        ScoreBoardExtract(league = league).save_scoreboard(date = current_date.strftime('%Y%m%d'))
-        BoxScoreExtract(league = league).save_boxscores(date = current_date.strftime('%Y%m%d'))
+        ScoreBoardExtract(league = league).save_scoreboard(date = current_date.strftime('%Y%m%d'), 
+                                                            save_to_folder=True)
+        BoxScoreExtract(league = league).save_boxscores(date = current_date.strftime('%Y%m%d'),
+                                                            save_to_folder=True)
 
         current_date += timedelta(days = 1)
 
     
-
-pull_historical_data('mlb', '20220105')
+if __name__ == '__main__':
+    pull_historical_data('mlb', '20120101')
 
 

@@ -1,8 +1,8 @@
 from extract import Extract
 from mongoclient import MongoDBClient
 from datetime import datetime
-
-
+import json
+import os
 
 
 class ScoreBoardExtract:
@@ -25,6 +25,19 @@ class ScoreBoardExtract:
                                         )
 
         return scoreboard
+
+
+
+    def initialize_document(self, id, cluster = None):
+        MongoDBClient(cluster).create_document(
+                                            db_name = self.LEAGUE, 
+                                            collection_name = self.ENDPOINT, 
+                                            document_id = id, 
+                                            content = {}
+                                            )
+    
+
+
 
     def clean_scoreboard(self, scoreboard):
         #remove the array wrapper on leagues and remove calendar array in leagues list
@@ -74,21 +87,37 @@ class ScoreBoardExtract:
         return scoreboard
 
     
-    def save_scoreboard(self, date = None, cluster = None):
+    def save_scoreboard(self, date = None, cluster = None, save_to_folder = False):
         if not date:
             date = datetime.strftime(datetime.today(), "%Y%m%d")
-
+        
         scoreboard = self.get_scoreboard(date)
         scoreboard = self.clean_scoreboard(scoreboard)
         if len(scoreboard['events']) > 0:
-            MongoDBClient(cluster).create_document(
+            if not save_to_folder:
+                MongoDBClient(cluster).create_document(
                                             db_name = self.LEAGUE, 
                                             collection_name = self.ENDPOINT, 
                                             document_id = date, 
                                             content = scoreboard
                                             )
+            else:
+                wdir = 'data/raw/' + self.LEAGUE + '/' + self.ENDPOINT + '/'
+                try:
+                    os.remove(wdir + date + '.json')
+                    print('REMOVING FILE TO REWRITE')
+                except:
+                    pass
+                start_time = datetime.now()    
+                with open(wdir + date + '.json', 'w') as fp:
+                    json.dump(scoreboard, fp)
+                fp.close()
+                print(f'FILED {date} SAVED ... time to save: {datetime.now() - start_time} seconds')
         else:
             print(f"NO EVENTS FOR DATE {date}")
 
 
 
+if __name__ == '__main__':
+    ScoreBoardExtract('mlb').save_scoreboard(save_to_folder=True)
+            
