@@ -92,6 +92,11 @@ class ScoreBoardExtract:
             date = datetime.strftime(datetime.today(), "%Y%m%d")
         
         scoreboard = self.get_scoreboard(date)
+        #check if response had error
+        if 'code' in scoreboard.keys():
+            print(f'RESPONSE ERROR FOR {date}')
+            return
+
         scoreboard = self.clean_scoreboard(scoreboard)
         if len(scoreboard['events']) > 0:
             if not save_to_folder:

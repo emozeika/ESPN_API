@@ -162,8 +162,10 @@ class BoxScoreExtract:
         Helper function to recieve all the event ids for a specific date. Returns 
         a list of event ids.
         '''
-        scoreboard_data = ScoreBoardExtract(league = self.LEAGUE).get_scoreboard(date = date)['events']
-
+        try:
+            scoreboard_data = ScoreBoardExtract(league = self.LEAGUE).get_scoreboard(date = date)['events']
+        except:
+            return None
         event_ids = []
         for i in range(len(scoreboard_data)):
             event_ids.append(scoreboard_data[i]['id'])
