@@ -1,3 +1,4 @@
+from datetime import datetime
 from pymongo import MongoClient
 import config
 
@@ -37,6 +38,9 @@ class MongoDBClient:
         '''Function to create a collection in a database'''
         self.CLIENT[db_name][collection_name]
 
+    def close_connection(self):
+        self.CLIENT.close()
+
     
 
     def check_document(self, db_name, collection_name, document_id):
@@ -56,21 +60,40 @@ class MongoDBClient:
 
     def create_document(self, db_name, collection_name, document_id, content):
 
+        start_time = datetime.now()
         if self.check_document(db_name, collection_name, document_id):
             print(f'REPLACING DOCUMENT IN [{db_name}-{collection_name}] WITH ID: {document_id}')
             self.CLIENT[db_name][collection_name].replace_one({'_id' : document_id}, {'data' : content})
+            print(f"Took {datetime.now() - start_time} seconds to replace")
         else:
             print(f'SAVING DOCUMENT TO [{db_name}-{collection_name}] WITH ID: {document_id}')
-            self.CLIENT[db_name][collection_name].insert_one({'_id': document_id, 'data' : content})
+            self.CLIENT[db_name][collection_name].insert_one({'_id': document_id, 'data' : content}, bypass_document_validation=True)
+            print(f"Took {datetime.now() - start_time} seconds to save")
 
 
+
+    def create_documents(self, db_name, collection_name, document_ids, contents):
+        documents = []
+        for i in range(len(document_ids)):
+            #check if document is already in collection
+            if self.check_document(db_name, collection_name, document_ids[i]):
+                print(f'REPLACING DOCUMENT IN [{db_name}-{collection_name}] WITH ID: {document_ids[i]}')
+                self.CLIENT[db_name][collection_name].replace_one({'_id' : document_ids[i]}, {'data' : contents[i]})
+            else:
+                documents.append({
+                                    '_id' : document_ids[i],
+                                    'data' : contents[i]
+                                })
+        #print(f'SAVING MULTIPLE DOCUMENTS TO [{db_name}-{collection_name}]')
+        if len(documents) > 0:
+            self.CLIENT[db_name][collection_name].insert_many(documents, bypass_document_validation=True)
+        self.close_connection()
 
 
 
 
     #TODO: Create function to connect to a collection
     #TODO: Create function to pull data from collection
-
 
 
 
