@@ -124,5 +124,6 @@ class ScoreBoardExtract:
 
 
 if __name__ == '__main__':
-    ScoreBoardExtract('mlb').save_scoreboard(save_to_folder=True)
+    #ScoreBoardExtract('mlb').save_scoreboard(save_to_folder=True)
+    print('finished')
             

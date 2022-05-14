@@ -2,10 +2,17 @@
 import requests
 import pandas as pd
 from datetime import datetime
-import config
 import json
 import os
-from config import BASEURL, VERSIONURL
+import sys
+
+#loading config variables from parent directory
+parent_dir = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+sys.path.append(parent_dir)
+import config
+
+
+
 
 class Extract:
     '''
@@ -123,5 +130,8 @@ class Extract:
 
 
 
-    
+
+
+if __name__ == '__main__':
+    print('file finished running')
     

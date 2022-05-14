@@ -126,7 +126,6 @@ class BoxScoreExtract:
         return box_score
 
 
-
     def clean_boxscore(self, box_score):
 
         #deleting uneceassary items
@@ -216,4 +215,5 @@ class BoxScoreExtract:
 
 
 if __name__ == '__main__':
-    BoxScoreExtract('mlb').save_boxscores(save_to_folder=True)
+    #BoxScoreExtract('mlb').save_boxscores(save_to_folder=True)
+    print('finished')

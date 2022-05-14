@@ -1,7 +1,7 @@
-from boxscore import BoxScoreExtract
+from extract.boxscore import BoxScoreExtract
 from datetime import datetime, timedelta
 
-from scoreboard import ScoreBoardExtract
+from extract.scoreboard import ScoreBoardExtract
 
 def pull_historical_data(league, start_date, end_date = None):
     '''
@@ -26,6 +26,6 @@ def pull_historical_data(league, start_date, end_date = None):
 
     
 if __name__ == '__main__':
-    pull_historical_data('mlb', '20120101')
+    pull_historical_data('mlb', '20180324')
 
 
