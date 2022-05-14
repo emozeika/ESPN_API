@@ -8,4 +8,17 @@ VERSIONURL = 'v2/'
 LOCAL_CLUSTER = "mongodb://localhost:27017/"
 
 
-#commit test
+#scoreboard table data types configuration
+scoreboard_dtypes = {
+    'event_id' : 'Int64',
+    'event_date' : 'string',
+    'home_team_id' : 'Int64',
+    'away_team_id' : 'Int64',
+    'event_site_name' : 'string',
+    'neutral_site' : 'bool',
+    'home_team_score' : 'Int64',
+    'away_team_score' : 'Int64',
+    'season_type_id' : 'Int64',
+    'season_type_name' : 'string',
+    'season_year' : 'Int64'
+}
