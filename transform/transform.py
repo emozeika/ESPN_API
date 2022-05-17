@@ -4,7 +4,7 @@ import os
 
 
 
-class ScoreboardTransform():
+class Transform():
 
     def __init__(self):
         pass
@@ -16,7 +16,12 @@ class ScoreboardTransform():
         return files
 
     
-    #TODO: function to create scoreboard table
+    def open_file(self, file_name):
+        file = open(self.RAW_DATA_PATH + file_name)
+        raw_data = json.load(file)
+        file.close()
+
+        return raw_data
             
 
 
