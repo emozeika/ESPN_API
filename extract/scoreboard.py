@@ -5,20 +5,22 @@ import json
 import os
 
 
-class ScoreBoardExtract:
+class ScoreBoardExtract(Extract):
     '''
     Extraction class to pull baseball data from ESPN
     '''
     ENDPOINT = 'games' 
     def __init__(self, league):
         self.LEAGUE = league
+        super().__init__()
+
 
 
     def get_scoreboard(self, date = None):
         if not date:
             date = datetime.strftime(datetime.today(), "%Y%m%d")
 
-        scoreboard = Extract().get_request(
+        scoreboard = self.get_request(
                                             league = self.LEAGUE, 
                                             endpoint = self.ENDPOINT,
                                             filters = {'dates' : date}
@@ -124,6 +126,6 @@ class ScoreBoardExtract:
 
 
 if __name__ == '__main__':
-    #ScoreBoardExtract('mlb').save_scoreboard(save_to_folder=True)
+    ScoreBoardExtract('mlb').save_scoreboard(save_to_folder=True)
     print('finished')
             

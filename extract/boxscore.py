@@ -9,14 +9,14 @@ import json
 
 
 
-class BoxScoreExtract:
+class BoxScoreExtract(Extract):
     '''
     Extraction class to pull data from ESPN for box scores and send to Mongo DB 
     '''
     ENDPOINT = 'stats' 
     def __init__(self, league):
         self.LEAGUE = league
-    
+        super().__init__()
 
 
     def get_boxscore(self, event_id):
@@ -25,7 +25,7 @@ class BoxScoreExtract:
         data for the event parameter.
         '''
         start_time = datetime.now()
-        box_score = Extract().get_request(
+        box_score = self.get_request(
                                             league = self.LEAGUE, 
                                             endpoint = self.ENDPOINT,
                                             filters = {'event' : event_id}
@@ -101,11 +101,6 @@ class BoxScoreExtract:
             
     def clean_stats(self, box_score):
         if 'boxscore' in box_score.keys():
-            #==============================================================================================
-            #removing athlete stats from box_score. make future functinoality to store these values as well
-            #==============================================================================================
-            if 'players' in box_score['boxscore'].keys():
-                del box_score['boxscore']['players']
             teams = {}
             for i in range(len(box_score['boxscore']['teams'])):
                 teams[str(i)] = box_score['boxscore']['teams'][i]
@@ -215,5 +210,5 @@ class BoxScoreExtract:
 
 
 if __name__ == '__main__':
-    #BoxScoreExtract('mlb').save_boxscores(save_to_folder=True)
+    BoxScoreExtract('mlb').save_boxscores(save_to_folder=True)
     print('finished')
