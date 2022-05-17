@@ -8,7 +8,11 @@ VERSIONURL = 'v2/'
 LOCAL_CLUSTER = "mongodb://localhost:27017/"
 
 
-#scoreboard table data types configuration
+#================================================================================
+# BASEBALL TABLE DATA TYPES CONFIGURATION IF LOADING FROM CSV
+#================================================================================
+
+#scoreboard
 scoreboard_dtypes = {
     'event_id' : 'Int64',
     'event_date' : 'string',
@@ -21,4 +25,9 @@ scoreboard_dtypes = {
     'season_type_id' : 'Int64',
     'season_type_name' : 'string',
     'season_year' : 'Int64'
+}
+
+#stats/boxscore
+stats_dtypes = {
+    'event_id' : 'Int64'
 }
