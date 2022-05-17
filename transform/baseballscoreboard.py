@@ -5,7 +5,7 @@ import sys
 from datetime import datetime
 
 #loading custom objects
-from scoreboardtransform import ScoreboardTransform
+from transform import Transform
 
 #loading config variables from parent directory
 base_dir = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
@@ -179,5 +179,5 @@ class BaseballScoreboardTransform:
 ###################################################################################
 
 if __name__ == '__main__' :
-    file_list = os.listdir(base_dir + '/' 'data/raw/mlb/games')
+    file_list = os.listdir(base_dir + '/' 'data/raw/mlb/games')[0]
     BaseballScoreboardTransform().save_new_events(file_list)
