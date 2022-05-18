@@ -16,7 +16,7 @@ import config
 
 
 
-class BaseballScoreboardTransform:
+class BaseballScoreboardTransform(Transform):
     LEAGUE = 'mlb'
     RAW_DATA_PATH = 'data/raw/mlb/games/'
     CURATED_DATA_PATH = 'data/curated/mlb/'
@@ -25,10 +25,6 @@ class BaseballScoreboardTransform:
     def __init__(self):
         pass
 
-    def load_file_names(self, file_path):
-        files = os.listdir(file_path)
-        
-        return files
 
     def create_events_for_date(self, file_name):
         '''
