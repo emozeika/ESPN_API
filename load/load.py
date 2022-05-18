@@ -10,12 +10,16 @@ import config
 
 class PostgresClient:
     '''
-    Client to send csv data to postgres database
+    Client to send csv data to postgres database.
     '''
     HOSTNAME = config.POSTGRES_HOSTNAME
     USERNAME = config.POSTGRES_USERNAME
     PASSWORD = config.POSTGRES_PWD
     PORT = config.POSTGRES_PORT
+    
+    
+    CONNECTION = None
+    CURSOR = None
 
     def __init__(self, database):
         self.DATABASE = database
@@ -31,3 +35,15 @@ class PostgresClient:
         self.CONNECTION.close()
 
 
+
+
+
+
+
+
+
+
+
+
+if __name__ == '__main__':
+    pass
