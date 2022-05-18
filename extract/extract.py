@@ -23,7 +23,9 @@ class Extract:
     LEAGUE_MAPPING = {
         'ncaam' : 'basketball/mens-college-basketball',
         'nba' : 'basketball/nba',
-        'mlb' : 'baseball/mlb'
+        'mlb' : 'baseball/mlb',
+        'nfl' : 'football/nfl',
+        'nhl' : 'hockey/nhl',
     }
     ENDPOINTS = {
         'games' : 'scoreboard', 

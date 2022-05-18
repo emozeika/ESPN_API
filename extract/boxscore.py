@@ -1,6 +1,6 @@
-from extract import Extract
-from mongoclient import MongoDBClient
-from scoreboard import ScoreBoardExtract
+from extract.extract import Extract
+from extract.scoreboard import ScoreBoardExtract
+from extract.mongoclient import MongoDBClient
 from datetime import datetime
 import os
 import json

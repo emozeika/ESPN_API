@@ -1,5 +1,5 @@
-from extract import Extract
-from mongoclient import MongoDBClient
+from extract.extract import Extract
+from extract.mongoclient import MongoDBClient
 from datetime import datetime
 import json
 import os
@@ -126,6 +126,6 @@ class ScoreBoardExtract(Extract):
 
 
 if __name__ == '__main__':
-    ScoreBoardExtract('mlb').save_scoreboard(save_to_folder=True)
+    ScoreBoardExtract('nba').save_scoreboard(save_to_folder=True)
     print('finished')
             
