@@ -1,7 +1,27 @@
-#URL structure variables for ESPN API
+#================================================================================
+# URL BASE STRINGS FOR ESPN API
+#================================================================================
 COREURL = 'http://sports.core.api.espn.com/'
 BASEURL = 'https://site.api.espn.com/apis/site/'
 VERSIONURL = 'v2/'
+
+
+
+
+#================================================================================
+# POSTGRES CLIENT INFO
+#================================================================================
+
+POSTGRES_HOSTNAME = 'localhost'
+POSTGRES_USERNAME = 'postgres'
+POSTGRES_PWD = 'Emoz3832!'
+POSTGRES_PORT = 5432
+
+
+POSTGRES_MLB_DB = 'mlb'
+POSTGRES_NBA_DB = 'nba'
+
+
 
 
 #Mongo DB local cluster
@@ -28,6 +48,35 @@ scoreboard_dtypes = {
 }
 
 #stats/boxscore
-stats_dtypes = {
-    'event_id' : 'Int64'
+batting_stats_dtypes = {
+    'event_id' : 'Int64',
+    'team_id' : 'Int64',
+    'event_team_id' : 'string',
+    'hitByPitch' : 'Int64', 
+    'groundBalls' : 'Int64',
+    'strikeouts' : 'Int64', 
+    'RBIs' : 'Int64', 
+    'hits' : 'Int64', 
+    'stolenBases' : 'Int64', 
+    'walks' : 'Int64', 
+    'runs' : 'Int64', 
+    'atBats' : 'Int64', 
+    'sacFlies' : 'Int64', 
+    'homeRuns' : 'Int64', 
+    'runnersLeftOnBase' : 'Int64', 
+    'triples' : 'Int64', 
+    'doubles' : 'Int64', 
+    'flyBalls' : 'Int64', 
+    'caughtStealing' : 'Int64',
+    'totalBases' : 'Int64', 
+    'plateAppearances' : 'Int64', 
+    'extraBaseHits' : 'Int64', 
+    'avg' : 'float64', 
+    'slugAvg' : 'float64', 
+    'onBasePct' : 'float64', 
+    'OPS' : 'float64', 
+    'atBatsPerHomeRun' : 'float64',
+    'stolenBasePct' : 'float64', 
+    'BIPA' : 'float64', 
+    'offWARBR' : 'float64'
 }
