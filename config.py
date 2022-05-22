@@ -43,6 +43,8 @@ scoreboard_dtypes = {
     'event_date' : 'string',
     'home_team_id' : 'int64',
     'away_team_id' : 'int64',
+    'home_team_name' : 'string',
+    'away_team_name' : 'string',
     'event_site_name' : 'string',
     'neutral_site' : 'bool',
     'home_team_score' : 'int64',
